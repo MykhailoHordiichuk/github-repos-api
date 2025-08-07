@@ -7,12 +7,16 @@ Spring Boot REST API to fetch GitHub repositories for a given user (excluding fo
 ## 🎯 Requirements
 
 - Java 21
-- Spring Boot v3.5.4
-- No WebFlux
-- No pagination
-- No DDD
-- **No GitHub token required**
-- One integration test (happy path) using real GitHub data (octocat)
+- Use Java 21 and Spring Boot 3.5
+- Do not use WebFlux
+- Do not implement pagination
+- Do not introduce DDD or hexagonal architecture
+- Only one integration test is required (happy path, with minimal or no mocking)
+- Use real GitHub data (e.g., octocat) in the integration test
+- Use https://developer.github.com/v3 as the backing API
+- The application must have a proper README.md
+- Deliver the project as a public GitHub repository link
+- Focus strictly on what is requested in the task — nothing extra
 
 ---
 
@@ -107,8 +111,7 @@ Run tests with:
 | Return repository name, owner login, branch name, and last commit SHA | ✅     |
 | Return 404 with specified JSON format for non-existing user            | ✅     |
 | One integration test covering happy path                               | ✅     |
-| No WebFlux, pagination, DDD/hexagonal, or token usage                  | ✅     |
-
+| No WebFlux, pagination, DDD/hexagonal                                 | ✅     |
 ---
 
 ## 👨‍💻 Author
