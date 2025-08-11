@@ -1,83 +1,70 @@
 # GitHub Repositories API
 
-Spring Boot REST API to fetch GitHub repositories for a given user (excluding forks) and list branches with last commit SHA.
+A Spring Boot REST API to fetch all non-fork GitHub repositories for a given user,
+including each branch with its last commit SHA.
 
 ---
 
-## 🎯 Requirements
+## 📋 Requirements
 
-- Java 21
-- Use Java 21 and Spring Boot 3.5
-- Do not use WebFlux
-- Do not implement pagination
-- Do not introduce DDD or hexagonal architecture
-- Only one integration test is required (happy path, with minimal or no mocking)
-- Use real GitHub data (e.g., octocat) in the integration test
-- Use https://developer.github.com/v3 as the backing API
-- The application must have a proper README.md
-- Deliver the project as a public GitHub repository link
-- Focus strictly on what is requested in the task — nothing extra
+- **Java** 21 (LTS)
+- **Spring Boot** 3.5.3
+- Maven (or use included `mvnw` wrapper)
+- Internet connection (for calling the GitHub API)
 
 ---
 
-## 🔧 How to run
+## 🛠 Installation
 
-1. Clone the repository:
-```bash
-  git clone //github.com/MykhailoHordiichuk/github-repos-api.git
-  cd github-repos-api
-```
-2. Build and run:
-```bash
-  ./mvnw spring-boot:run
-```
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/MykhailoHordiichuk/github-repos-api.git
+   cd github-repos-api
+   ```
 
-The app will start on: `http://localhost:8080`
+2. **Build and run the application**:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
 
----
-
-## 📘 API Endpoint
-
-### `GET /api/repos/{username}`
-
-Returns list of public repositories (excluding forks) with their branches and latest commit SHA.
+   The application will start at: [http://localhost:8080](http://localhost:8080)
 
 ---
 
-## ✅ Example – Existing GitHub User
+## 🚀 Usage
+
+### Endpoint
+
+**GET** `/api/repos/{username}`
+
+Retrieves all **non-fork** public repositories for the given GitHub username, including each branch and its latest commit SHA.
+
+### Example — Existing GitHub User
 
 **Request:**
-```
-GET /api/repos/MykhailoHordiichuk
+```bash
+ curl http://localhost:8080/api/repos/octocat
 ```
 
 **Response:**
 ```json
 [
   {
-    "repositoryName": "my-intellij-project",
-    "ownerLogin": "MykhailoHordiichuk",
+    "repositoryName": "Hello-World",
+    "ownerLogin": "octocat",
     "branches": [
-      {
-        "name": "front-end",
-        "lastCommitSha": "725102a4be0d6973fc3e1bb96ed35ab442298aed"
-      },
-      {
-        "name": "master",
-        "lastCommitSha": "4b5b143ca9e84b08db7f8e2bc35e77e919d39130"
-      }
+      { "name": "main", "lastCommitSha": "abc123" },
+      { "name": "dev", "lastCommitSha": "def456" }
     ]
   }
 ]
 ```
 
----
-
-## ❌ Example – Non-existing GitHub User
+### Example — Non-existing GitHub User
 
 **Request:**
-```
-GET /api/repos/nonexistinguser123
+```bash
+ curl http://localhost:8080/api/repos/nonexistinguser123
 ```
 
 **Response:**
@@ -92,29 +79,57 @@ GET /api/repos/nonexistinguser123
 
 ## 🧪 Running Tests
 
-An integration test is included and uses real GitHub user `octocat` for verification.
+Integration tests are included and **use WireMock** to mock the GitHub API.
 
-Run tests with:
-
+Run all tests:
 ```bash
-./mvnw test
+ ./mvnw test
 ```
+
+---
+
+## 📦 Project Structure
+
+- **`client/`** — HTTP client for GitHub API (uses Spring `RestClient`)
+- **`config/`** — Configuration beans
+- **`controller/`** — REST controller
+- **`dto/`** — Data transfer objects (`record` classes)
+- **`exception/`** — Exception classes and handlers
+- **`service/`** — Business logic
+- **`test/`** — Integration tests (with WireMock)
 
 ---
 
 ## ✅ Acceptance Criteria Coverage
 
 | Requirement                                                              | Status |
-|-------------------------------------------------------------------------|--------|
-| List all public repositories for a GitHub user                         | ✅     |
-| Exclude forked repositories                                            | ✅     |
-| Return repository name, owner login, branch name, and last commit SHA | ✅     |
-| Return 404 with specified JSON format for non-existing user            | ✅     |
-| One integration test covering happy path                               | ✅     |
-| No WebFlux, pagination, DDD/hexagonal                                 | ✅     |
+|---------------------------------------------------------------------------|--------|
+| List all public repositories for a GitHub user                           | ✅     |
+| Exclude forked repositories                                              | ✅     |
+| Return repository name, owner login, branch name, and last commit SHA    | ✅     |
+| Return 404 with specified JSON format for non-existing user              | ✅     |
+| One integration test covering happy path (WireMock)                      | ✅     |
+| No WebFlux, pagination, DDD/hexagonal                                    | ✅     |
+
 ---
 
-## 👨‍💻 Author
+## 🤝 Contributing
 
-Mykhailo Hordiichuk  
+This repository is for recruitment purposes only and does not accept external contributions.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 📌 Project Status
+
+Completed — no further development planned.
+
+---
+
+**Author:** Mykhailo Hordiichuk  
 Technical assignment project
