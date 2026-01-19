@@ -27,8 +27,6 @@ including each branch with its last commit SHA.
    ./mvnw spring-boot:run
    ```
 
-   The application will start at: [http://localhost:8080](http://localhost:8080)
-
 ---
 
 ## 🚀 Usage
